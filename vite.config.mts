@@ -34,6 +34,7 @@ export default defineConfig({
     }),
     Components({
       dts: 'src/components.d.ts',
+      dirs: ['src/views', 'src/components'],
     }),
     Vue({
       template: { transformAssetUrls },

@@ -8,3 +8,29 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+:root {
+    --color-purple: #7733FF;
+    --color-blue: #3378FF;
+    --color-silver-04-opacity: rgba(0, 0, 0, 0.04);
+    --color-silver-50-opacity: rgba(0, 0, 0, 0.54);
+    --color-silver-72-opacity: rgba(0, 0, 0, 0.72);
+    --color-silver-82-opacity: rgba(0, 0, 0, 0.82);
+    --color-silver-92-opacity: rgba(0, 0, 0, 0.92);
+    --color-silver: #B9BBC2;
+
+    --background-color-button-purple: #F6F1FF;
+    --background-color-wrapper: #F9FCFF;
+
+    --font-plus: "Plus Jakarta Sans", sans-serif;
+    --font-poppins: "Poppins", sans-serif;
+}
+
+* {
+    font-family: var(--font-plus);
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}

@@ -2,27 +2,28 @@
 <template>
   <div>
     <Header />
-    <div class="container-profile">
-      <div>left</div>
-      <div class="container-avatar">
-        <Avatar />
+    <div class="container-wrapper">
+      <div class="__description">
+
+        
       </div>
+      <div class="__avatar"></div>
     </div>
   </div>
 </template>
 <style scoped>
-.container-profile {
+.container-wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 0px 20px 0px 20px;
-  width: 100vw;
-  height: 100vh;
+  height: 40vh;
 
-  background: red;
-}
-.container-avatar {
-  width: 200px;
-  margin: 30px 30px 0px 0px;
-  background-color: blue;
+  & .__description {
+    width: 100%;
+    background: red
+  }
+  & .__avatar {
+    width: 100%;
+    background: blue;
+  }
 }
 </style>

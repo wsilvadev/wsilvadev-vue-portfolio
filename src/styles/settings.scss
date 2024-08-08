@@ -8,3 +8,15 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
+* {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+:root {
+    --purple: #7733FF;
+    --blue: #3378FF;
+    --background-button-purple: #F6F1FF;
+}

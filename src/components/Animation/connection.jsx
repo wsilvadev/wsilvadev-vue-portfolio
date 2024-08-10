@@ -8,11 +8,10 @@ import CanvasComponent from './index';
  *
  * @param {HTMLElement} targetEl - O elemento DOM onde o componente será renderizado.
  */
-export function renderReactComponent(targetEl) {
+export function renderReactComponent(targetEl, props) {
   if (!targetEl || !(targetEl instanceof HTMLElement)) {
     throw new Error('O elemento alvo para renderização não foi fornecido.');
   }
-
   const root = createRoot(targetEl);
-  root.render(<CanvasComponent />);
+  root.render(<CanvasComponent animation={props} />);
 }

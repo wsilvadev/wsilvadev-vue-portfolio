@@ -1,13 +1,13 @@
 import { Avatar } from './Avatar';
 import React from 'react';
 
-export const Experience = () => {
+export const Experience = (props) => {
   return (
     <>
       <ambientLight intensity={-2} />
 
       <group position={0}>
-        <Avatar />
+        <Avatar animation={props.animation} />
       </group>
     </>
   );

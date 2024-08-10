@@ -26,7 +26,7 @@
       </div>
 
       <v-overlay :model-value="overlay" class="align-center justify-center">
-        <Avatar />
+        <Avatar animation="talkingPhone" />
       </v-overlay>
     </div>
   </div>

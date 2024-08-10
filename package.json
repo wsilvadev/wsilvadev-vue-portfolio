@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
+    "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.109.2",
     "@react-three/fiber": "^8.16.8",
     "@vitejs/plugin-react": "^4.3.1",

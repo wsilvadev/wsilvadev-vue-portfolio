@@ -7,26 +7,40 @@
     <div class="__options">
       <div class="container__menu-items">
         <div class="menu-items" v-for="item in itemsMenu" :key="item">
-          <v-btn
-            :append-icon="item?.icon"
-            @click="redirectTo(item.page, item?.isOutsidePage)"
-          >
+          <v-btn v-if="item.isMobile" click="redirectTo(item.page, item?.isOutsidePage)">
             {{ item.text }}
           </v-btn>
+          <template v-if="item.isCollapsed">
+            <v-menu location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-btn class="__button" :append-icon="getIcon(item)" v-bind="props">
+                  Work
+                </v-btn>
+              </template>
+
+              <v-list>
+                <v-list-item v-for="(links, index) in item.dropdown" :key="index">
+                  <v-btn class="__list__item__button" @click="redirectTo('/', false)" >{{ links.text }}</v-btn>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+          <div class="links">
+            <v-btn v-for="links in item.dropdown" :key="links"> {{ links.text }}</v-btn>
+          </div>
         </div>
       </div>
 
-      <div>
+      <div class="__options__github__linkeding">
         <v-btn @click="redirectTo('/', false)">
           <v-icon icon="mdi-github" />
         </v-btn>
-        <v-btn  @click="redirectTo('/', false)" >
+        <v-btn @click="redirectTo('/', false)">
           <v-icon icon="mdi-linkedin" />
         </v-btn>
       </div>
 
       <v-overlay :model-value="overlay" class="align-center justify-center">
-        <Avatar animation="talkingPhone" />
       </v-overlay>
     </div>
   </div>
@@ -35,21 +49,9 @@
 export default {
   data: () => ({
     overlay: false,
-    itemsMenu: [
-      {
-        text: 'Blog',
-        page: '/',
-      },
-      {
-        text: 'FAQ',
-        page: '',
-      },
-      {
-        text: 'Work',
-        page: 'https://www.qualicorp.com.br/',
-        isOutsidePage: true,
-        icon: 'mdi-menu-right',
-      },
+    isMobile: false,
+    isCollapsed: false,
+    dropdown: [
       {
         text: 'Services',
         page: '',
@@ -63,7 +65,52 @@ export default {
         page: '',
       },
     ],
+    itemsMenu: [
+      {
+        text: 'Blog',
+        page: '/',
+        isMobile: true
+      },
+      {
+        text: 'FAQ',
+        page: '',
+        isMobile: true
+      },
+      {
+        text: 'Work',
+        page: 'https://www.qualicorp.com.br/',
+        isMobile: false,
+        isCollapsed: true,
+        isOutsidePage: true,
+        dropdown: [
+          {
+            text: 'Services',
+            page: '',
+            isMobile: true,
+          },
+          {
+            text: 'About',
+            page: '',
+            isMobile: true,
+
+          },
+          {
+            text: 'Contact',
+            page: '',
+            isMobile: true,
+
+          },
+        ],
+      },
+
+    ],
   }),
+
+  computed: {
+    renderMenus() {
+      return this.itemsMenu;
+    },
+  },
   methods: {
     redirectTo(page, outside_url) {
       this.overlay = !this.overlay;
@@ -75,6 +122,11 @@ export default {
         }
       }, 4000);
     },
+    getIcon(item) {
+      if (item.isCollapsed) {
+        return this.isCollapsed == true ? 'mdi-menu-down' : 'mdi-menu-right';
+      }
+    },
   },
 };
 </script>
@@ -83,7 +135,7 @@ export default {
   display: flex;
   gap: 20px;
   width: 100%;
-  padding: 30px;
+  padding: 20px 10px 20px 10px;
 
   .__name {
     display: flex;
@@ -99,6 +151,8 @@ export default {
       color: var(--color-purple);
     }
   }
+
+
 
   .__options {
     display: flex;
@@ -116,9 +170,15 @@ export default {
       text-transform: none;
       color: var(--color-purple);
     }
+
+
     .container__menu-items {
       display: flex;
       flex-direction: row;
+    }
+
+    .__button {
+      pointer-events: none;
     }
 
     .menu-items:nth-child(1),
@@ -129,29 +189,97 @@ export default {
     }
 
     .menu-items:nth-child(3) {
+      display: flex;
+      align-items: center;
+
       .v-btn {
         font-size: 16px;
         background-color: var(--background-color-button-purple);
       }
+
+      @media (max-width: 900px) {
+        .links {
+          display: none !important;
+
+        }
+      }
+
+      .links .v-btn:nth-child(2)::before {
+        content: '';
+        display: flex;
+        position: absolute;
+        left: 0;
+        background-color: var(--color-purple);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+      }
+
+      .links .v-btn:nth-child(3)::before {
+        content: '';
+        display: flex;
+        position: absolute;
+        left: 0;
+        background-color: var(--color-purple);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+      }
+
+      .links {
+        display: flex;
+
+        .v-btn {
+          background-color: unset;
+          color: var(--color-purple)
+        }
+
+      }
+
     }
 
-    .menu-items:nth-child(4)::after {
-      content: '';
-      display: inline-block;
-      background-color: var(--color-purple);
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
+
+
+  }
+
+  @media screen and (max-width: 900px) {
+
+    .__name {
+      display: none;
     }
 
-    .menu-items:nth-child(5)::after {
-      content: '';
-      display: inline-block;
-      background-color: var(--color-purple);
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
+    .__options {
+      max-height: 20px;
+
+      .v-btn {
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+
+      }
+
+      .__button {
+        pointer-events: painted;
+        padding: 0px 10px 0px 10px;
+
+        ::v-deep .v-btn__content {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
+.__list__item__button{
+  background: none;
+  box-shadow: unset;
+  color: var(--color-purple);
+  ::v-deep .v-btn__content {
+    font-size: 12px;
+  }
+}
+.__options__github__linkeding {
+  display: flex;
+    
+}
+
 </style>

@@ -7,36 +7,57 @@
     <div class="__options">
       <div class="container__menu-items">
         <div class="menu-items" v-for="item in itemsMenu" :key="item">
-          <v-btn v-if="item.isMobile" click="redirectTo(item.page, item?.isOutsidePage)">
+          <v-btn
+            v-if="item.isMobile"
+            click="redirectTo(item.page, item?.isOutsidePage)"
+          >
             {{ item.text }}
           </v-btn>
-          <template v-if="item.isCollapsed">
-            <v-menu location="bottom">
+          <template v-if="item.isCollapseButton">
+            <v-menu location="bottom" @click:outside="handleCollapse(item)" >
               <template v-slot:activator="{ props }">
-                <v-btn class="__button" :append-icon="getIcon(item)" v-bind="props">
+                <v-btn
+                  class="__button"
+                  :append-icon="getIcon(item)"
+                  v-bind="props"
+                  @click="handleCollapse(item)"
+                >
                   Work
                 </v-btn>
               </template>
 
               <v-list>
-                <v-list-item v-for="(links, index) in item.dropdown" :key="index">
-                  <v-btn class="__list__item__button" @click="redirectTo('/', false)" >{{ links.text }}</v-btn>
+                <v-list-item
+                  v-for="(links, index) in item.dropdown"
+                  :key="index"
+                >
+                  <v-btn
+                    class="__list__item__button"
+                    @click="redirectTo('/', false)"
+                    >{{ links.text }}</v-btn
+                  >
                 </v-list-item>
               </v-list>
             </v-menu>
           </template>
           <div class="links">
-            <v-btn v-for="links in item.dropdown" :key="links"> {{ links.text }}</v-btn>
+            <v-btn v-for="links in item.dropdown" :key="links">
+              {{ links.text }}</v-btn
+            >
           </div>
         </div>
       </div>
 
       <div class="__options__github__linkeding">
         <v-btn @click="redirectTo('/', false)">
-          <v-icon icon="mdi-github" />
+          <v-icon icon="mdi-github"  />
         </v-btn>
         <v-btn @click="redirectTo('/', false)">
           <v-icon icon="mdi-linkedin" />
+        </v-btn>
+        <span/>
+        <v-btn @click="redirectTo('/', false)">
+          <v-icon icon="mdi-weather-sunny" />
         </v-btn>
       </div>
 
@@ -69,17 +90,18 @@ export default {
       {
         text: 'Blog',
         page: '/',
-        isMobile: true
+        isMobile: true,
       },
       {
         text: 'FAQ',
         page: '',
-        isMobile: true
+        isMobile: true,
       },
       {
         text: 'Work',
         page: 'https://www.qualicorp.com.br/',
         isMobile: false,
+        isCollapseButton: true,
         isCollapsed: true,
         isOutsidePage: true,
         dropdown: [
@@ -92,17 +114,14 @@ export default {
             text: 'About',
             page: '',
             isMobile: true,
-
           },
           {
             text: 'Contact',
             page: '',
             isMobile: true,
-
           },
         ],
       },
-
     ],
   }),
 
@@ -122,10 +141,11 @@ export default {
         }
       }, 4000);
     },
+    handleCollapse(item) {
+      item.isCollapsed = !item.isCollapsed;
+    },  
     getIcon(item) {
-      if (item.isCollapsed) {
-        return this.isCollapsed == true ? 'mdi-menu-down' : 'mdi-menu-right';
-      }
+        return !item.isCollapsed ? 'mdi-menu-down' : 'mdi-menu-right';
     },
   },
 };
@@ -152,8 +172,6 @@ export default {
     }
   }
 
-
-
   .__options {
     display: flex;
     justify-content: space-between;
@@ -170,7 +188,6 @@ export default {
       text-transform: none;
       color: var(--color-purple);
     }
-
 
     .container__menu-items {
       display: flex;
@@ -200,7 +217,6 @@ export default {
       @media (max-width: 900px) {
         .links {
           display: none !important;
-
         }
       }
 
@@ -231,19 +247,13 @@ export default {
 
         .v-btn {
           background-color: unset;
-          color: var(--color-purple)
+          color: var(--color-purple);
         }
-
       }
-
     }
-
-
-
   }
 
   @media screen and (max-width: 900px) {
-
     .__name {
       display: none;
     }
@@ -255,7 +265,6 @@ export default {
         font-size: 10px;
         margin: 0;
         padding: 0;
-
       }
 
       .__button {
@@ -269,7 +278,7 @@ export default {
     }
   }
 }
-.__list__item__button{
+.__list__item__button {
   background: none;
   box-shadow: unset;
   color: var(--color-purple);
@@ -279,7 +288,20 @@ export default {
 }
 .__options__github__linkeding {
   display: flex;
-    
-}
+  gap: 10px;
+  span{
+    width: 1px;
+    margin: 10px 0 10px 0;
+    background-color: var(--color-silver);
+  }
+  .v-btn {
+    min-width: unset;
+    width: 20px;
+    .v-icon {
+      color: var(--color-silver-92-opacity)
+    }
+    }
+   
 
+}
 </style>

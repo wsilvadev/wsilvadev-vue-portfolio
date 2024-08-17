@@ -35,3 +35,11 @@
     font-style: normal;
     zoom: 1;
 }
+.gradient-text {
+    background-color: transparent;
+    background: linear-gradient(120deg, var(--color-purple) 50%, var(--color-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}

@@ -6,13 +6,13 @@
       <div class="__description">
         <div class="__title">
           <p>I’m
-          <p>Willian</p> Simões.</p>
+          <p class="gradient-text">Willian</p> Simões.</p>
           <span>creative and <b>technical</b> frontend <b>developer</b>.</span>
         </div>
         <div class="__hire_resume_button">
-            <v-btn class="__hire">HIRE ME</v-btn>
-            <v-btn class="__resume" >RESUME</v-btn>
-          </div>
+          <v-btn class="__hire">HIRE ME</v-btn>
+          <v-btn class="gradient-text">RESUME</v-btn>
+        </div>
         <div class="__stacks">
           <p>tech stack / tools favorit saat ini:</p>
           <div class="__stacks__item">
@@ -81,16 +81,27 @@
 
         </div>
       </div>
+
+    </div>
+    <div class="container-cards">
+      <v-skeleton-loader v-for="n in 3" :key="n" class="card__item" type="list-item-avatar, image, list-item-avatar"
+        v-if="loading"></v-skeleton-loader>
+      <Card v-else v-for="item in repositories" :key="item" class="card__item" mdicon="mdi-github" :title="item.name"
+        :description="item.description" :language="item.language" />
     </div>
   </div>
 </template>
 <script>
+import { useRepositories } from '../../stores/app'
+
 export default {
   data() {
     return {
       animated: '',
+      repositories: [],
       animationName: 'running',
       isMobile: false,
+      loading: false,
       mediaQuery: window.matchMedia('(max-width: 900px)')
     };
   },
@@ -101,11 +112,27 @@ export default {
     }, 
     updateIcons() {
 
+    },
+     async getRepositories(){
+      try {
+      this.loading = true
+    const repositories = useRepositories();
+        await repositories.fetchRepositories()
+
+      this.repositories = repositories.getRepositories
+    } catch (err) {
+      console.error(err);
+    }  finally {
+      this.loading = false
     }
+     }
 
   },
-  mounted() {
+  async mounted() {
     this.mediaQuery.addEventListener('change', (item)=>{this.isMobile = item.matches});
+  
+await this.getRepositories()
+
   },
   beforeDestroy() {
     this.mediaQuery.removeEventListener('change', (item)=>{this.isMobile = item.matches});
@@ -127,16 +154,19 @@ export default {
 
 </script>
 <style scoped>
+@import url('../../styles/settings.scss');
+
 .container-wrapper {
   display: flex;
-  height: 60vh;
+  height: 6in;
+  /* usando o in é mesma coisa de usar calc(2 * 6 * 96px); para pegar a polegada do monitor */
   background-color: var(--background-color-wrapper);
+  position: relative;
 
 
   .__description {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     padding: 15vh 0 0 20vw;
     flex-direction: column;
 
@@ -148,6 +178,7 @@ export default {
       p {
         display: inline;
         font-size: 50px;
+        white-space: nowrap;
         font-family: var(--font-poppins);
         font-weight: 900;
         color: var(--color-silver-72-opacity);
@@ -162,31 +193,31 @@ export default {
         font-size: 24px;
       }
     }
-    .__hire_resume_button {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        margin: 2vh 0 4vh 0;
 
-        .v-btn {
-          border: none;
-          box-shadow: none;
-          height: 42px;
-          width: 150px;
-        }
-        .__hire {
-          background-color: var(--color-purple);
-          color: #fff;
-        }
-        .__resume {
-          background-color: transparent;
-          color: var(--color-purple);
-        }
+    .__hire_resume_button {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      margin-top: 20px;
+
+      .v-btn {
+        border: none;
+        box-shadow: none;
+        height: 42px;
+        width: 150px;
       }
+
+      .__hire {
+        background: linear-gradient(120deg, var(--color-purple) 50%, var(--color-blue) 100%);
+        color: #fff;
+      }
+    }
+
     .__stacks {
       display: flex;
       flex-direction: column;
-      margin-bottom: 10vh;
+      position: absolute;
+      bottom: 100px;
 
       p {
         color: var(--color-silver-50-opacity);
@@ -228,10 +259,9 @@ export default {
     .__avatar {
       display: flex;
       width: 300px;
-      max-height: 450px;
-      background-color: var(--color-purple);
-      border-radius: 0px 0px 40% 40%;
-      padding-top: 10vh;
+      max-height: 480px;
+      background: linear-gradient(120deg, var(--color-purple) 50%, var(--color-blue) 100%);
+      border-radius: 0px 0px 37% 37%;
       position: relative;
 
 
@@ -246,11 +276,11 @@ export default {
       }
 
       ::v-deep .v-img__img {
-        left: -90px;
+        left: -105px;
         z-index: 9999;
         top: 20px;
         transform: rotate(-10deg);
-        min-width: 270px;
+        min-width: 360px;
       }
     }
 
@@ -272,11 +302,12 @@ export default {
   position: relative;
   background-color: #fff;
   width: 100%;
-  height: 100vh;
+
   z-index: 3;
 
   .__animation__avatar {
-    display: flex;
+    display: none;
+    /** revisar classe */
     justify-content: flex-end;
     width: 100%;
     height: 300px;
@@ -303,7 +334,7 @@ export default {
   .container__marketing {
     display: flex;
     flex-wrap: wrap;
-    position: absolute;
+    position: relative;
     top: -60px;
     left: 20%;
     width: 67%;
@@ -357,15 +388,58 @@ export default {
 
 }
 
+.container-cards {
+  display: flex;
+  margin: 0px 80px 0px 250px;
+  overflow-x: scroll;
+  gap: 20px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  .card__item {
+    flex: 0 0 33.33%;
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+  }
+
+
+}
+
+.container-cards .card__item:hover {
+  transform: scale(1.05);
+}
+
+@media (hover: none) {
+  .container-cards .card__item {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .container-cards .card__item:active {
+    transform: scale(1.1);
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container-wrapper {
+
+    .container__avatar {
+      display: none;
+    }
+  }
+
+}
+
 @media screen and (max-width: 900px) {
   .container-wrapper {
     display: flex;
     height: 50vh;
     width: 100%;
-    background-image:  url('../../assets/vignette.svg'), url('../../assets/bg.svg');
+    background-image: url('../../assets/vignette.svg'), url('../../assets/bg.svg');
     background-size: cover, cover;
     background-position: center, center;
     background-repeat: no-repeat, no-repeat;
+
 
     .__description {
       display: flex;
@@ -376,35 +450,45 @@ export default {
       position: relative;
 
       .__title {
-        p {
-          font-size: 40px;
 
+        p {
+          font-size: 35px;
         }
 
         span {
-          font-size: 20px;
+          font-size: 17px;
         }
 
       }
+
       .__hire_resume_button {
         margin: 10px 0 90px 0;
+        gap: 2px;
       }
 
       .__stacks {
         display: flex;
-        margin-bottom: 0;
-        left: 0;
+        bottom: 60px;
+        left: 20px;
+
+        p {
+          font-size: 12px;
+        }
+
+        .__stacks__item {
+
+          .v-icon {
+            font-size: 20px;
+          }
+        }
       }
     }
 
-    .container__avatar {
-      display: none;
-    }
 
   }
 
   .container-jobs {
-    height: 600px;
+    height: 400px;
 
     .__animation__avatar {
       height: 100%;
@@ -438,6 +522,7 @@ export default {
         align-items: center;
         width: max-content;
         height: 20px;
+
         p {
           font-size: 16px !important;
           margin-top: 0 !important;
@@ -448,6 +533,15 @@ export default {
         }
       }
 
+    }
+  }
+
+  .container-cards {
+    gap: 30px;
+    margin: 20px;
+
+    .card__item {
+      flex: 0 0 80%;
     }
 
   }

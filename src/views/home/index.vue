@@ -84,16 +84,19 @@
 
     </div>
     <div class="container-cards">
-      <v-skeleton-loader v-for="n in 3" :key="n" class="card__item" type="list-item-avatar, image, list-item-avatar"
-        v-if="loading"></v-skeleton-loader>
-      <Card v-else v-for="item in repositories" :key="item" class="card__item" mdicon="mdi-github" :title="item.name"
-        :description="item.description" :language="item.language" />
+
+      <Card class="card__item" :logo="mocks.megarepasse.logo" :title="mocks.megarepasse.name"
+        :description="mocks.megarepasse.description" :storeScreens="mocks.megarepasse.storeScreens" />
+      <Card class="card__item" :logo="mocks.qualicorp.logo" :title="mocks.qualicorp.name"
+        :description="mocks.qualicorp.description" :storeScreens="mocks.qualicorp.storeScreens" />
+      <Card class="card__item" :logo="mocks.clube.logo" :title="mocks.clube.name"
+        :description="mocks.clube.description" :storeScreens="mocks.clube.storeScreens" />
     </div>
   </div>
 </template>
 <script>
 import { useRepositories } from '../../stores/app'
-
+import  mocks from '@/mocks/applications.js'
 export default {
   data() {
     return {
@@ -102,7 +105,8 @@ export default {
       animationName: 'running',
       isMobile: false,
       loading: false,
-      mediaQuery: window.matchMedia('(max-width: 900px)')
+      mediaQuery: window.matchMedia('(max-width: 900px)'),
+      mocks
     };
   },
   methods:{
@@ -131,7 +135,6 @@ export default {
   async mounted() {
     this.mediaQuery.addEventListener('change', (item)=>{this.isMobile = item.matches});
   
-await this.getRepositories()
 
   },
   beforeDestroy() {
@@ -397,7 +400,7 @@ await this.getRepositories()
   scroll-behavior: smooth;
 
   .card__item {
-    flex: 0 0 33.33%;
+    flex: 0 0 80%;
     transition: transform 0.3s ease-in-out;
     box-sizing: border-box;
     scroll-snap-align: start;
@@ -407,7 +410,7 @@ await this.getRepositories()
 }
 
 .container-cards .card__item:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
 }
 
 @media (hover: none) {
@@ -416,7 +419,7 @@ await this.getRepositories()
   }
 
   .container-cards .card__item:active {
-    transform: scale(1.1);
+    transform: scale(1);
   }
 }
 

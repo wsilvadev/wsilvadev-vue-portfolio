@@ -1,51 +1,96 @@
 <template>
-    <v-card
-      class="mx-auto text-white card-container"
-      max-width="400"
-      :prepend-icon="mdicon"
-      :title="title"
-    >
+  <v-card class="card-container">
+    <div class="card-container__header">
+        <img :src="logo" />
+      <h2 class="card-container__header__title gradient-text "> {{ title }} </h2>
+    </div>
 
-      <template v-slot:prepend>
-        <v-icon size="x-large"></v-icon>
-      </template>
-  
-      <v-card-text class="text-h5 py-2">
-        {{ description }}
-      </v-card-text>
-  
-      <v-card-actions>
-        <v-list-item class="w-100">
-          <template v-slot:prepend>
-            <v-avatar
-              color="grey-darken-3"
-              image="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-            ></v-avatar>
-          </template>
-  
-          <v-list-item-title>Willian</v-list-item-title>
-  
-          <v-list-item-subtitle>{{language}}</v-list-item-subtitle>
-  
-        </v-list-item>
-      </v-card-actions>
-      
-    </v-card>
+    <div class="card-container__body">
+      <div
+        v-for="item in storeScreens" :key="item"  > 
+        <img  :src="item"/>
 
-  </template>
-  <script>
+      </div>
+    </div>
+
+    <div class="card-container__footer">
+      <p class="card-container__footer__text"> {{ description }} </p>
+    </div>
+  </v-card>
+</template>
+<script>
 export default {
-props: ['mdicon', 'title', "description", "language"]
-
-}
+  props: ['logo', 'title', 'storeScreens', 'description'],
+  data() {
+    return {
+    }
+  },
+  
+};
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .card-container {
-background: linear-gradient(120deg, var(--color-purple) 50%,  var(--color-blue) 100%);
-}
-.v-card-actions {
-  position: absolute;
-  bottom: 0;
-}
+  background-color: var(--background-color-wrapper);
+  border: 1px solid var(--color-silver-04-opacity);
+  height: 800px;
 
+  &__header {
+    display: flex;
+    width: 100%;
+    height: 90px;
+
+
+    &__title {
+      padding: 20px 0px 0px 20px;
+      font-size: 24px;
+      font-weight: 400;
+      font-family: var(--font-poppins);
+    }
+  }
+  &__body {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    width: 100%;
+    height: 90%;
+    overflow: scroll;
+    img {
+      width: 250px;
+    }
+  }
+ 
+  &__footer {
+    width: 100%;
+    position: sticky;
+    bottom: 20px;
+    padding: 10px;
+    height: 90px;
+    &__text {
+      font-size: 14px;
+      font-weight: 200;
+    }
+    
+  }
+  @media  screen and (max-width: 900px){
+    height: 450px;
+    &__header {
+      height: 60px;
+      &__title {
+        font-size: 12px;
+      }
+    }
+    &__body {
+      img {
+        width: 100px;
+      }
+    }
+    &__footer {
+      bottom: 60px;
+      &__text {
+        font-size: 10px;
+      }
+    }
+    
+  }
+}
 </style>

@@ -4,6 +4,7 @@
     <Header />
     <div class="container-wrapper">
       <div class="__description">
+        <Particles/>
         <div class="__title">
           <p>I’m
           <p class="gradient-text">Willian</p> Simões.</p>
@@ -409,18 +410,14 @@ export default {
 
 }
 
-.container-cards .card__item:hover {
-  transform: scale(1.01);
-}
+
 
 @media (hover: none) {
   .container-cards .card__item {
     transition: transform 0.3s ease-in-out;
   }
 
-  .container-cards .card__item:active {
-    transform: scale(1);
-  }
+
 }
 
 @media screen and (max-width: 1100px) {

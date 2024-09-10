@@ -1,18 +1,25 @@
 <script lang="ts"></script>
 <template>
   <div>
+    <div id="square"></div>
+
     <Header />
     <div class="container-wrapper">
       <div class="__description">
-        <Particles/>
+        <Particles />
         <div class="__title">
           <p>I’m
           <p class="gradient-text">Willian</p> Simões.</p>
           <span>creative and <b>technical</b> frontend <b>developer</b>.</span>
         </div>
         <div class="__hire_resume_button">
-          <v-btn class="__hire">HIRE ME</v-btn>
-          <v-btn class="gradient-text">RESUME</v-btn>
+          <v-btn class="__hire">HIRE ME
+            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
+          </v-btn>
+          <v-btn class="gradient-text">
+            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
+            RESUME
+          </v-btn>
         </div>
         <div class="__stacks">
           <p>tech stack / tools favorit saat ini:</p>
@@ -84,14 +91,14 @@
       </div>
 
     </div>
-    <div class="container-cards">
+    <div class="container-cards" id="cards">
 
       <Card class="card__item" :logo="mocks.megarepasse.logo" :title="mocks.megarepasse.name"
         :description="mocks.megarepasse.description" :storeScreens="mocks.megarepasse.storeScreens" />
       <Card class="card__item" :logo="mocks.qualicorp.logo" :title="mocks.qualicorp.name"
         :description="mocks.qualicorp.description" :storeScreens="mocks.qualicorp.storeScreens" />
-      <Card class="card__item" :logo="mocks.clube.logo" :title="mocks.clube.name"
-        :description="mocks.clube.description" :storeScreens="mocks.clube.storeScreens" />
+      <Card class="card__item" :logo="mocks.clube.logo" :title="mocks.clube.name" :description="mocks.clube.description"
+        :storeScreens="mocks.clube.storeScreens" />
     </div>
   </div>
 </template>
@@ -167,6 +174,11 @@ export default {
   background-color: var(--background-color-wrapper);
   position: relative;
 
+  animation-name: opacityAnimation;
+  animation-duration: 1ms;
+  /* Firefox requires this to apply the animation */
+  animation-direction: alternate;
+  animation-timeline: scroll(block nearest);
 
   .__description {
     width: 100%;
@@ -400,6 +412,12 @@ export default {
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 
+  animation-name: translateAnimation;
+  animation-duration: 1ms;
+  /* Firefox requires this to apply the animation */
+  animation-direction: alternate;
+  animation-timeline: scroll(block nearest);
+
   .card__item {
     flex: 0 0 80%;
     transition: transform 0.3s ease-in-out;
@@ -544,6 +562,30 @@ export default {
       flex: 0 0 80%;
     }
 
+  }
+}
+
+@keyframes translateAnimation {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0)
+  }
+}
+
+@keyframes opacityAnimation {
+  from {
+    opacity: 1;
+
+  }
+
+  to {
+    opacity: 0;
   }
 }
 </style>

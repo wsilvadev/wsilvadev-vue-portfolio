@@ -7,56 +7,49 @@
     <div class="__options">
       <div class="container__menu-items">
         <div class="menu-items" v-for="item in itemsMenu" :key="item">
-          <v-btn
-            v-if="item.isMobile"
-            click="redirectTo(item.page, item?.isOutsidePage)"
-          >
+          <v-btn v-if="item.isMobile" click="redirectTo(item.page, item?.isOutsidePage)">
+            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
             {{ item.text }}
           </v-btn>
+
           <template v-if="item.isCollapseButton">
-            <v-menu location="bottom" @click:outside="handleCollapse(item)" >
+            <v-menu location="bottom" @click:outside="handleCollapse(item)">
               <template v-slot:activator="{ props }">
-                <v-btn
-                  class="__button"
-                  :append-icon="getIcon(item)"
-                  v-bind="props"
-                  @click="handleCollapse(item)"
-                >
+                <v-btn class="__button" :append-icon="getIcon(item)" v-bind="props" @click="handleCollapse(item)">
                   Work
                 </v-btn>
               </template>
 
               <v-list>
-                <v-list-item
-                  v-for="(links, index) in item.dropdown"
-                  :key="index"
-                >
-                  <v-btn
-                    class="__list__item__button"
-                    @click="redirectTo('/', false)"
-                    >{{ links.text }}</v-btn
-                  >
+                <v-list-item v-for="(links, index) in item.dropdown" :key="index">
+                  <v-btn class="__list__item__button" :href="links.page" @click="redirectTo('', false)">{{
+                    links.text
+                    }}</v-btn>
                 </v-list-item>
               </v-list>
             </v-menu>
           </template>
-          <div class="links">
-            <v-btn v-for="links in item.dropdown" :key="links">
-              {{ links.text }}</v-btn
-            >
+          <div class="links" v-for="links in item.dropdown" :key="links">
+            <v-btn :href="links.page" @click="redirectTo('', false)">
+              {{ links.text }}
+              <v-tooltip activator="parent" v-if="links.page !== '#cards'" location="end">Developing</v-tooltip>
+
+            </v-btn>
           </div>
         </div>
       </div>
 
       <div class="__options__github__linkeding">
-        <v-btn @click="redirectTo('/', false)">
-          <v-icon icon="mdi-github"  />
+        <v-btn @click="redirectTo('https://github.com/wsilvadev', true)">
+          <v-icon icon="mdi-github" />
         </v-btn>
-        <v-btn @click="redirectTo('/', false)">
+        <v-btn @click="redirectTo('https://www.linkedin.com/in/wsilvadev/', true)">
           <v-icon icon="mdi-linkedin" />
         </v-btn>
-        <span/>
-        <v-btn @click="redirectTo('/', false)">
+        <span />
+        <v-btn @click="redirectTo('', false)">
+          <v-tooltip activator="parent" location="end">Developing</v-tooltip>
+
           <v-icon icon="mdi-weather-sunny" />
         </v-btn>
       </div>
@@ -75,15 +68,15 @@ export default {
     dropdown: [
       {
         text: 'Services',
-        page: '',
+        page: '#cards',
       },
       {
         text: 'About',
-        page: '',
+        page: '#about',
       },
       {
         text: 'Contact',
-        page: '',
+        page: '#contact',
       },
     ],
     itemsMenu: [
@@ -99,7 +92,7 @@ export default {
       },
       {
         text: 'Work',
-        page: 'https://www.qualicorp.com.br/',
+        page: '',
         isMobile: false,
         isCollapseButton: true,
         isCollapsed: true,
@@ -107,17 +100,17 @@ export default {
         dropdown: [
           {
             text: 'Services',
-            page: '',
+            page: '#cards',
             isMobile: true,
           },
           {
             text: 'About',
-            page: '',
+            page: '#about',
             isMobile: true,
           },
           {
             text: 'Contact',
-            page: '',
+            page: '#contact',
             isMobile: true,
           },
         ],
@@ -132,20 +125,20 @@ export default {
   },
   methods: {
     redirectTo(page, outside_url) {
-      this.overlay = !this.overlay;
+      // this.overlay = !this.overlay;
       setTimeout(() => {
-        this.overlay = false;
+        // this.overlay = false;
         if (outside_url) window.open(page, '_blank');
         else {
           this.$router.push(page);
         }
-      }, 4000);
+      }, 0);
     },
     handleCollapse(item) {
       item.isCollapsed = !item.isCollapsed;
-    },  
+    },
     getIcon(item) {
-        return !item.isCollapsed ? 'mdi-menu-down' : 'mdi-menu-right';
+      return !item.isCollapsed ? 'mdi-menu-down' : 'mdi-menu-right';
     },
   },
 };
@@ -278,30 +271,36 @@ export default {
     }
   }
 }
+
 .__list__item__button {
   background: none;
   box-shadow: unset;
   color: var(--color-purple);
+
   ::v-deep .v-btn__content {
     font-size: 12px;
   }
 }
+
 .__options__github__linkeding {
   display: flex;
   gap: 10px;
-  span{
+
+  span {
     width: 1px;
     margin: 10px 0 10px 0;
     background-color: var(--color-silver);
   }
+
   .v-btn {
     min-width: unset;
     width: 20px;
+
     .v-icon {
       color: var(--color-silver-92-opacity)
     }
-    }
-   
+  }
+
 
 }
 </style>

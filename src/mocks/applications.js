@@ -1,7 +1,8 @@
 export default {
   megarepasse: {
     name: 'Mega repasse',
-    description: 'This was my first React Native project. I worked closely with another Senior Developer and I was able to help him build the app from scratch. the app is an auction app for pusrchasing used cars, and at the time it was delivered, each announced car was puschased in less than 5 minutes after being announced in the app.',
+    description:
+      'This was my first React Native project. I worked closely with another Senior Developer and I was able to help him build the app from scratch. the app is an auction app for pusrchasing used cars, and at the time it was delivered, each announced car was puschased in less than 5 minutes after being announced in the app.',
     logo: ' https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/b0/2a/08/b02a089a-d6e2-ac0a-b180-e5739dc568eb/AppIcon-1x_U007emarketing-0-5-0-0-85-220.png/1200x630wa.png',
     storeScreens: [
       'https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/28/14/5c/28145cc3-0943-4289-1b49-435cdd0a26cd/pr_source.png/300x0w.png',
@@ -15,19 +16,20 @@ export default {
   },
   qualicorp: {
     name: 'Qualicorp',
-    description: 'The Client Channel app from Qualicorp, a leader in health insurance in Brazil, provides a convenient way to manage your needs. Through the app, clients can open requests, obtain invoices, and track the status of their demands. With a user-friendly interface, the app simplifies communication and service management efficiently.',
+    description:
+      'The Client Channel app from Qualicorp, a leader in health insurance in Brazil, provides a convenient way to manage your needs. Through the app, clients can open requests, obtain invoices, and track the status of their demands. With a user-friendly interface, the app simplifies communication and service management efficiently.',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e9/5e/5e/e95e5e30-5829-7f05-0ee9-083419a97312/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/1200x630wa.png',
     storeScreens: [
       'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9c/51/0a/9c510aca-ee8a-a96d-5780-f454e55751eb/7ef43e2a-3bfd-44f2-ae40-5ead2ceb96f3_Frame_4679.png/300x0w.png',
       'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/26/f0/92/26f092ab-c156-4f2f-6cd2-99a1c8382056/64de20dc-fea9-4123-8fc6-fbb9c178fee5_Frame_4681.png/300x0w.png',
       'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/d1/15/53d1153c-69c4-1d3a-4861-93068c31085d/d5fe4b78-0cb7-4fbb-baf0-b884372751fd_Frame_4682.png/300x0w.webp',
-      'https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/53/d1/15/53d1153c-69c4-1d3a-4861-93068c31085d/d5fe4b78-0cb7-4fbb-baf0-b884372751fd_Frame_4682.png/300x0w.png',
       'https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/c3/fd/1b/c3fd1bb2-a477-505c-eb4b-4b9a184769d6/dcc7f2a9-3685-4245-a0d4-cd3e02b0c941_Frame_4683.png/300x0w.webp',
     ],
   },
   clube: {
     name: 'Clube de Saúde',
-    description: 'The Clube de Saúde app from Qualicorp provides users with a range of additional benefits. Through the app, clients can access discounts on health products and services, stay informed about exclusive promotions, and manage their advantages conveniently. The platform aims to offer a comprehensive and valuable experience beyond traditional health services.',
+    description:
+      'The Clube de Saúde app from Qualicorp provides users with a range of additional benefits. Through the app, clients can access discounts on health products and services, stay informed about exclusive promotions, and manage their advantages conveniently. The platform aims to offer a comprehensive and valuable experience beyond traditional health services.',
     logo: 'https://is1-ssl.mzstatic.com/image/thumb/Purple112/v4/26/11/9d/26119d23-ad4a-dd5f-bbe5-60457c5d7691/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/1200x630wa.png',
     storeScreens: [
       'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/68/0b/53/680b5306-bdb8-939d-1071-dd6f0476c55a/8b31bccb-c67d-4cc2-b6cb-b5d3eaf8c113_Home.png/300x0w.webp',

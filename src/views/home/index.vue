@@ -8,15 +8,16 @@
       <div class="__description">
         <Particles />
         <div class="__title">
-          <p>I’m
-          <p class="gradient-text">Willian</p> Simões.</p>
-          <span>creative and <b>technical</b> frontend <b>developer</b>.</span>
+          <span>I'm.
+            <p class="gradient-text">Willian</p> Simões.
+          </span>
+          <span class="__details">creative and <b>technical</b> frontend <b>developer</b>.</span>
         </div>
         <div class="__hire_resume_button">
-          <v-btn class="__hire">HIRE ME
+          <v-btn class="__hire" disabled>HIRE ME
             <v-tooltip activator="parent" location="end">Developing</v-tooltip>
           </v-btn>
-          <v-btn class="gradient-text">
+          <v-btn disabled class="gradient-text">
             <v-tooltip activator="parent" location="end">Developing</v-tooltip>
             RESUME
           </v-btn>
@@ -45,12 +46,15 @@
       </div>
     </div>
     <div class="container-jobs">
-      <div class="__animation__avatar">
+      <!--
+       <div class="__animation__avatar">
         <Avatar class="__animation_hiphop" animation="hiphop" idComponent="hiphop" v-if="animationName === 'hiphop'" />
 
         <Avatar class="__animation_running" animation="running" idComponent="running"
           v-else="animationName === 'running'" />
+          
       </div>
+      -->
       <div class="container__marketing">
         <div class="__marketing">
           <div class="__marketing__title">
@@ -91,8 +95,8 @@
       </div>
 
     </div>
-    <div class="container-cards" id="cards">
 
+    <div class="container-cards" id="cards">
       <Card class="card__item" :logo="mocks.megarepasse.logo" :title="mocks.megarepasse.name"
         :description="mocks.megarepasse.description" :storeScreens="mocks.megarepasse.storeScreens" />
       <Card class="card__item" :logo="mocks.qualicorp.logo" :title="mocks.qualicorp.name"
@@ -164,7 +168,7 @@ export default {
 };
 
 </script>
-<style scoped>
+<style scoped lang="scss">
 @import url('../../styles/settings.scss');
 
 .container-wrapper {
@@ -191,6 +195,7 @@ export default {
       display: flex;
       flex-direction: column;
 
+      span,
       p {
         display: inline;
         font-size: 50px;
@@ -200,11 +205,11 @@ export default {
         color: var(--color-silver-72-opacity);
       }
 
-      p>p {
+      span>p {
         color: var(--color-purple);
       }
 
-      span {
+      .__details {
         font-weight: 400;
         font-size: 24px;
       }
@@ -425,7 +430,6 @@ export default {
     scroll-snap-align: start;
   }
 
-
 }
 
 
@@ -470,11 +474,15 @@ export default {
       .__title {
 
         p {
-          font-size: 35px;
+          font-size: 33px;
         }
 
         span {
-          font-size: 17px;
+          font-size: 33px;
+        }
+
+        .__details {
+          font-size: 16px;
         }
 
       }

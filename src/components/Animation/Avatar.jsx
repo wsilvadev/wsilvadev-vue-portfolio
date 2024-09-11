@@ -6,22 +6,21 @@ import React, { useRef, useEffect } from 'react';
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
-export function Avatar({animation}) {
+export function Avatar({ animation }) {
   const group = useRef();
   const { nodes, materials } = useGLTF('/animations/avatar.glb');
 
   const { animations: talkingPhone } = useFBX('animations/TalkingPhone.fbx');
   const { animations: hiphop } = useFBX('animations/HipHopDance.fbx');
-  const { animations: running } = useFBX('animations/Running.fbx');
+  const { animations: typing } = useFBX('animations/Typing.fbx');
 
   hiphop[0].name = 'hiphop';
   talkingPhone[0].name = 'talkingPhone';
-  running[0].name = 'running';
+  typing[0].name = 'typing';
 
   const talking = useAnimations(talkingPhone, group);
-  const hiphopDance =  useAnimations(hiphop, group);
-  const runningAnimation = useAnimations(running, group);
-  
+  const hiphopDance = useAnimations(hiphop, group);
+  const typingAnimation = useAnimations(typing, group);
 
   useFrame((state) => {
     //const target = new THREE.Vector3(state.mouse.x, state.mouse.y, 1);
@@ -32,12 +31,12 @@ export function Avatar({animation}) {
       talking.actions['talkingPhone']?.reset().play();
     } else if (animation === 'hiphop') {
       hiphopDance.actions['hiphop']?.reset().play();
-    } else if (animation === 'running') {
-      runningAnimation.actions['running']?.reset().play();
+    } else if (animation === 'typing') {
+      typingAnimation.actions['typing']?.reset().play();
     }
   }, [animation]);
   return (
-    <group  ref={group} dispose={null}>
+    <group ref={group} dispose={null}>
       <primitive object={nodes.Hips} />
       <skinnedMesh
         name="EyeLeft"

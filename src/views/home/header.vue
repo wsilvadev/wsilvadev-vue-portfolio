@@ -7,7 +7,7 @@
     <div class="__options">
       <div class="container__menu-items">
         <div class="menu-items" v-for="item in itemsMenu" :key="item">
-          <v-btn v-if="item.isMobile" click="redirectTo(item.page, item?.isOutsidePage)">
+          <v-btn v-if="item.isMobile" @click="redirectTo(item.page, false)">
             <v-tooltip activator="parent" location="end">Developing</v-tooltip>
             {{ item.text }}
           </v-btn>
@@ -22,18 +22,17 @@
 
               <v-list>
                 <v-list-item v-for="(links, index) in item.dropdown" :key="index">
-                  <v-btn class="__list__item__button" :href="links.page" @click="redirectTo('', false)">{{
+                  <v-btn class="__list__item__button" :href="links.page" @click="redirectTo(links.page, false)">{{
                     links.text
-                    }}</v-btn>
+                  }}</v-btn>
                 </v-list-item>
               </v-list>
             </v-menu>
           </template>
           <div class="links" v-for="links in item.dropdown" :key="links">
-            <v-btn :href="links.page" @click="redirectTo('', false)">
+            <v-btn :href="links.page" @click="redirectTo(links.page, false)">
               {{ links.text }}
               <v-tooltip activator="parent" v-if="links.page !== '#cards'" location="end">Developing</v-tooltip>
-
             </v-btn>
           </div>
         </div>
@@ -54,7 +53,8 @@
         </v-btn>
       </div>
 
-      <v-overlay :model-value="overlay" class="align-center justify-center">
+      <v-overlay :model-value="overlay" class=" avatar-container align-center justify-center">
+        <h1>Developing...</h1>
       </v-overlay>
     </div>
   </div>
@@ -72,11 +72,11 @@ export default {
       },
       {
         text: 'About',
-        page: '#about',
+        page: '',
       },
       {
         text: 'Contact',
-        page: '#contact',
+        page: '',
       },
     ],
     itemsMenu: [
@@ -105,12 +105,12 @@ export default {
           },
           {
             text: 'About',
-            page: '#about',
+            page: '',
             isMobile: true,
           },
           {
             text: 'Contact',
-            page: '#contact',
+            page: '',
             isMobile: true,
           },
         ],
@@ -125,14 +125,19 @@ export default {
   },
   methods: {
     redirectTo(page, outside_url) {
-      // this.overlay = !this.overlay;
-      setTimeout(() => {
-        // this.overlay = false;
-        if (outside_url) window.open(page, '_blank');
-        else {
-          this.$router.push(page);
-        }
-      }, 0);
+      console.log('page', outside_url)
+      if (page !== '#cards') {
+        this.overlay = !this.overlay;
+
+        setTimeout(() => {
+          this.overlay = false;
+          return
+        }, 6000);
+      }
+      if (outside_url) window.open(page, '_blank');
+      else {
+        this.$router.push(page);
+      }
     },
     handleCollapse(item) {
       item.isCollapsed = !item.isCollapsed;
@@ -302,5 +307,19 @@ export default {
   }
 
 
+}
+
+h1 {
+  color: yellow
+}
+
+.v-overlay {
+  width: 100dvw;
+  height: 100dvh;
+
+  .avatar {
+    width: 50dvw;
+    height: 50dvh;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="container-header">
-    <div class="__name">
+    <div class="__name" @click="$router.push('/')">
       <p>will</p>
       <p>dev</p>
     </div>
@@ -24,7 +24,7 @@
                 <v-list-item v-for="(links, index) in item.dropdown" :key="index">
                   <v-btn class="__list__item__button" :href="links.page" @click="redirectTo(links.page, false)">{{
                     links.text
-                  }}</v-btn>
+                    }}</v-btn>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -48,14 +48,9 @@
         <span />
         <v-btn @click="redirectTo('', false)">
           <v-tooltip activator="parent" location="end">Developing</v-tooltip>
-
           <v-icon icon="mdi-weather-sunny" />
         </v-btn>
       </div>
-
-      <v-overlay :model-value="overlay" class=" avatar-container align-center justify-center">
-        <h1>Developing...</h1>
-      </v-overlay>
     </div>
   </div>
 </template>
@@ -66,30 +61,30 @@ export default {
     isMobile: false,
     isCollapsed: false,
     dropdown: [
-      {
-        text: 'Services',
-        page: '#cards',
-      },
-      {
-        text: 'About',
-        page: '',
-      },
-      {
-        text: 'Contact',
-        page: '',
-      },
+      /*    {
+            text: 'Services',
+            page: '#cards',
+          },
+          {
+            text: 'About',
+            page: '',
+          },
+          {
+            text: 'Contact',
+            page: '',
+          },*/
     ],
     itemsMenu: [
       {
         text: 'Blog',
-        page: '/',
+        page: '/blog',
         isMobile: true,
       },
-      {
-        text: 'FAQ',
-        page: '',
-        isMobile: true,
-      },
+      /* {
+         text: 'FAQ',
+         page: '',
+         isMobile: true,
+       },
       {
         text: 'Work',
         page: '',
@@ -98,23 +93,23 @@ export default {
         isCollapsed: true,
         isOutsidePage: true,
         dropdown: [
-          {
-            text: 'Services',
-            page: '#cards',
-            isMobile: true,
-          },
+           {
+              text: 'Services',
+              page: '#cards',
+              isMobile: true,
+            },
           {
             text: 'About',
-            page: '',
+            page: '/blog',
             isMobile: true,
           },
-          {
-            text: 'Contact',
-            page: '',
-            isMobile: true,
-          },
+           {
+             text: 'Contact',
+             page: '',
+             isMobile: true,
+           },
         ],
-      },
+      },*/
     ],
   }),
 
@@ -125,18 +120,17 @@ export default {
   },
   methods: {
     redirectTo(page, outside_url) {
-      console.log('page', outside_url)
-      if (page !== '#cards') {
-        this.overlay = !this.overlay;
-
-        setTimeout(() => {
-          this.overlay = false;
-          return
-        }, 6000);
-      }
+      /* if (page !== '#cards') {
+         this.overlay = !this.overlay;
+ 
+         setTimeout(() => {
+           this.overlay = false;
+           return
+         }, 6000);
+       }*/
       if (outside_url) window.open(page, '_blank');
       else {
-        this.$router.push(page);
+        this.$router.replace(page);
       }
     },
     handleCollapse(item) {
@@ -252,8 +246,9 @@ export default {
   }
 
   @media screen and (max-width: 900px) {
-    .__name {
-      display: none;
+    .container-header {
+      display: flex;
+      align-items: center;
     }
 
     .__options {
@@ -304,6 +299,7 @@ export default {
     .v-icon {
       color: var(--color-silver-92-opacity)
     }
+
   }
 
 
@@ -320,6 +316,12 @@ h1 {
   .avatar {
     width: 50dvw;
     height: 50dvh;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container-header {
+    align-items: center;
   }
 }
 </style>

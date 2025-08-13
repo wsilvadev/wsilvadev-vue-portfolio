@@ -1,4 +1,3 @@
-<script lang="ts"></script>
 <template>
   <div>
     <div id="square"></div>
@@ -108,7 +107,7 @@
 </template>
 <script>
 import { useRepositories } from '../../stores/app'
-import  mocks from '@/mocks/applications.js'
+import mocks from '@/mocks/applications.js'
 export default {
   data() {
     return {
@@ -121,43 +120,43 @@ export default {
       mocks
     };
   },
-  methods:{
-    handleAnimation(name){
+  methods: {
+    handleAnimation(name) {
       this.animationName = name;
 
-    }, 
+    },
     updateIcons() {
 
     },
-     async getRepositories(){
+    async getRepositories() {
       try {
-      this.loading = true
-    const repositories = useRepositories();
+        this.loading = true
+        const repositories = useRepositories();
         await repositories.fetchRepositories()
 
-      this.repositories = repositories.getRepositories
-    } catch (err) {
-      console.error(err);
-    }  finally {
-      this.loading = false
+        this.repositories = repositories.getRepositories
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.loading = false
+      }
     }
-     }
 
   },
   async mounted() {
-    this.mediaQuery.addEventListener('change', (item)=>{this.isMobile = item.matches});
-  
+    this.mediaQuery.addEventListener('change', (item) => { this.isMobile = item.matches });
+
 
   },
   beforeDestroy() {
-    this.mediaQuery.removeEventListener('change', (item)=>{this.isMobile = item.matches});
+    this.mediaQuery.removeEventListener('change', (item) => { this.isMobile = item.matches });
   },
   watch: {
     animationName(val) {
     },
     mediaQuery: {
       handler(val) {
-      this.isMobile = val.matches
+        this.isMobile = val.matches
 
       },
       immediate: true

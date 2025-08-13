@@ -1,6 +1,6 @@
 <template>
   <div class="container-header">
-    <div class="__name" @click="$router.go(-1)">
+    <div class="__name" @click="$router.push('/')">
       <p>will</p>
       <p>dev</p>
     </div>
@@ -24,7 +24,7 @@
                 <v-list-item v-for="(links, index) in item.dropdown" :key="index">
                   <v-btn class="__list__item__button" :href="links.page" @click="redirectTo(links.page, false)">{{
                     links.text
-                  }}</v-btn>
+                    }}</v-btn>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -61,18 +61,18 @@ export default {
     isMobile: false,
     isCollapsed: false,
     dropdown: [
-      {
-        text: 'Services',
-        page: '#cards',
-      },
-      {
-        text: 'About',
-        page: '',
-      },
-      {
-        text: 'Contact',
-        page: '',
-      },
+      /*    {
+            text: 'Services',
+            page: '#cards',
+          },
+          {
+            text: 'About',
+            page: '',
+          },
+          {
+            text: 'Contact',
+            page: '',
+          },*/
     ],
     itemsMenu: [
       {
@@ -80,11 +80,11 @@ export default {
         page: '/blog',
         isMobile: true,
       },
-      {
-        text: 'FAQ',
-        page: '',
-        isMobile: true,
-      },
+      /* {
+         text: 'FAQ',
+         page: '',
+         isMobile: true,
+       },
       {
         text: 'Work',
         page: '',
@@ -93,23 +93,23 @@ export default {
         isCollapsed: true,
         isOutsidePage: true,
         dropdown: [
-          {
-            text: 'Services',
-            page: '#cards',
-            isMobile: true,
-          },
+           {
+              text: 'Services',
+              page: '#cards',
+              isMobile: true,
+            },
           {
             text: 'About',
             page: '/blog',
             isMobile: true,
           },
-          {
-            text: 'Contact',
-            page: '',
-            isMobile: true,
-          },
+           {
+             text: 'Contact',
+             page: '',
+             isMobile: true,
+           },
         ],
-      },
+      },*/
     ],
   }),
 
@@ -246,8 +246,9 @@ export default {
   }
 
   @media screen and (max-width: 900px) {
-    .__name {
-      display: none;
+    .container-header {
+      display: flex;
+      align-items: center;
     }
 
     .__options {
@@ -298,6 +299,7 @@ export default {
     .v-icon {
       color: var(--color-silver-92-opacity)
     }
+
   }
 
 
@@ -314,6 +316,12 @@ h1 {
   .avatar {
     width: 50dvw;
     height: 50dvh;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container-header {
+    align-items: center;
   }
 }
 </style>

@@ -1,4 +1,17 @@
-export default {
+export interface Application {
+  name: string;
+  description: string;
+  logo: string;
+  storeScreens: string[];
+}
+
+export interface ApplicationsMocks {
+  megarepasse: Application;
+  qualicorp: Application;
+  clube: Application;
+}
+
+const applications: ApplicationsMocks = {
   megarepasse: {
     name: 'Mega repasse',
     description:
@@ -39,4 +52,6 @@ export default {
     ],
   },
 };
-// icon https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e9/5e/5e/e95e5e30-5829-7f05-0ee9-083419a97312/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/1200x630wa.png
+
+export default applications;
+

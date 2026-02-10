@@ -8,7 +8,6 @@
       <div class="container__menu-items">
         <div class="menu-items" v-for="item in itemsMenu" :key="item">
           <v-btn v-if="item.isMobile" @click="redirectTo(item.page, false)">
-            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
             {{ item.text }}
           </v-btn>
 
@@ -153,7 +152,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    cursor: pointer;
+    
     p {
       font-weight: bold;
       font-size: 24px;

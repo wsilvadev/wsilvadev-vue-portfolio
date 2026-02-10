@@ -18,12 +18,10 @@
         </div>
 
         <div class="__hire_resume_button" data-aos="fade-up" data-aos-delay="300">
-          <v-btn class="__hire animate-button" disabled>
+          <v-btn class="__hire animate-button" @click="hireMe">
             HIRE ME
-            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
           </v-btn>
-          <v-btn disabled class="gradient-text animate-button">
-            <v-tooltip activator="parent" location="end">Developing</v-tooltip>
+          <v-btn  class="gradient-text animate-button" @click="downloadResume">
             RESUME
           </v-btn>
         </div>
@@ -118,7 +116,7 @@
 
 <script>
 import { useRepositories } from '../../stores/app'
-import mocks from '@/mocks/applications.js'
+import mocks from '@/mocks/applications.ts'
 import Particles from '../../components/Particles.vue'
 
 export default {
@@ -144,6 +142,20 @@ export default {
 
     updateIcons() {
       // Placeholder for icon updates
+    },
+    downloadResume() {
+      const resumeUrl = new URL('@/assets/resume.pdf', import.meta.url).href;
+      const link = document.createElement('a');
+      link.href = resumeUrl;
+      link.download = 'Willian_Simoes_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+    hireMe(){
+    const subject = encodeURIComponent('Subject: Job Opportunity');
+    window.location.href = `mailto:wsilvadev@gmail.com?subject=${subject}`;
+    return;
     },
 
     async getRepositories() {
